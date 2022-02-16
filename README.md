@@ -1,2 +1,2 @@
 # planet-time
-[planet-time.html]
+[Take your time](planet-time.html)
