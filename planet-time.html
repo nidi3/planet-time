@@ -1,107 +1,142 @@
-<div style="position: relative; width: 1500px; height: 200px;">
+<div style="position: relative; width: 100%; height: 200px;">
     <svg id="svg" width="100%" height="100%" preserveAspectRatio="none" style="background-color: black"
          xmlns="http://www.w3.org/2000/svg">
     </svg>
-    <div id="time" style="color: white; background-color: #00000020; padding: 2px 5px; position: absolute; top: 85%; left: 50%;"></div>
+    <div id="time"
+         style="color: white; background-color: #00000020; padding: 2px 5px; position: absolute; top: 85%; left: 50%;"></div>
 </div>
 <script type="application/javascript">
 const planets = [
-    {
-        name: 'sun',
-        r: 1391.4,
-        d: 0,
-        sunPart: 0,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_187527_Sun_Joined_nm3or0.jpg'
-    },
-    {
-        name: 'mercury',
-        r: 4.879,
-        d: 57.9,
-        sunPart: 0,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_Mercury_ladprw.jpg'
-    },
-    {
-        name: 'venus',
-        r: 12.104,
-        d: 108.2,
-        sunPart: 0,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_Venus_nli6oy.jpg'
-    },
-    {
-        name: 'earth',
-        r: 12.756,
-        d: 149.6,
-        sunPart: 0,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/DK_192970_earth_aw_zrbzwo.jpg'
-    },
-    {
-        name: 'mars',
-        r: 6.792,
-        d: 227.9,
-        sunPart: 0,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/Mars_ICE_CAP_BACK0000_ozkwko.jpg'
-    },
-    {
-        name: 'ceres',
-        r: .939,
-        d: 413.8,
-        sunPart: -1,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/685735main_pia15678-43_full_shadow_fhwoxh.jpg'
-    },
-    {
-        name: 'jupiter',
-        r: 142.984,
-        d: 778.6,
-        sunPart: -1,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/DK_192970_jupiter_aw_wbzzsf.jpg'
-    },
-    {
-        name: 'saturn',
-        r: 120.536,
-        d: 1433.5,
-        sunPart: -1,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_187527_OUTERPLANETS_Saturn_doegjg.png'
-    },
-    {
-        name: 'uranus',
-        r: 51.118,
-        d: 2872.5,
-        sunPart: -1,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1440,f_auto/AW_Uranus_iadr9y.jpg'
-    },
-    {
-        name: 'neptune',
-        r: 49.528,
-        d: 4495.1,
-        sunPart: -1,
-        image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_640,f_auto/Neptune-size-comparison_d8aloj.png'
-    }
-]
-const query = Object.fromEntries(location.search.substring(1).split('&').map(q => q.split('=').map(q => decodeURIComponent(q))))
-const speed = query.speed || 1
-let pos = 0
-let planet = 1
-let width, height
-let animating = false
+  {
+    name: 'sun',
+    r: 1391.4,
+    d: 0,
+    sunPart: 0,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_187527_Sun_Joined_nm3or0.jpg'
+  },
+  {
+    name: 'mercury',
+    r: 4.879,
+    d: 57.9,
+    sunPart: 0,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_Mercury_ladprw.jpg'
+  },
+  {
+    name: 'venus',
+    r: 12.104,
+    d: 108.2,
+    sunPart: 0,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_Venus_nli6oy.jpg'
+  },
+  {
+    name: 'earth',
+    r: 12.756,
+    d: 149.6,
+    sunPart: 0,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/DK_192970_earth_aw_zrbzwo.jpg'
+  },
+  {
+    name: 'mars',
+    r: 6.792,
+    d: 227.9,
+    sunPart: 0,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/Mars_ICE_CAP_BACK0000_ozkwko.jpg'
+  },
+  {
+    name: 'ceres',
+    r: .939,
+    d: 413.8,
+    sunPart: -1,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/685735main_pia15678-43_full_shadow_fhwoxh.jpg'
+  },
+  {
+    name: 'jupiter',
+    r: 142.984,
+    d: 778.6,
+    sunPart: -1,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/DK_192970_jupiter_aw_wbzzsf.jpg'
+  },
+  {
+    name: 'saturn',
+    r: 120.536,
+    d: 1433.5,
+    sunPart: -1,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/AW_187527_OUTERPLANETS_Saturn_doegjg.png'
+  },
+  {
+    name: 'uranus',
+    r: 51.118,
+    d: 2872.5,
+    sunPart: -1,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1440,f_auto/AW_Uranus_iadr9y.jpg'
+  },
+  {
+    name: 'Neptune',
+    r: 49.528,
+    d: 4495.1,
+    sunPart: -1,
+    image: 'https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_640,f_auto/Neptune-size-comparison_d8aloj.png'
+  },
+  {
+    name: 'New Horizons',
+    r: 20,
+    d: 7840,
+    sunPart: -1,
+    image: 'https://ids.si.edu/ids/deliveryService?id=NASM-A20080394000-NASM2018-10777&max=900'
+  }, {
+    name: 'Pioneer 11',
+    r: 20,
+    d: 16030,
+    sunPart: -1,
+    image: 'https://cdn.prod.www.spiegel.de/images/97ce1c1e-0001-0004-0000-000001372718_w1019_r1_fpx41.39_fpy44.85.jpg'
+  }, {
+    name: 'Voyager 2',
+    r: 20,
+    d: 19360,
+    sunPart: -1,
+    image: 'https://cdn.prod.www.spiegel.de/images/97ce1c1e-0001-0004-0000-000001372718_w1019_r1_fpx41.39_fpy44.85.jpg'
+  }, {
+    name: 'Voyager 1',
+    r: 20,
+    d: 23240,
+    sunPart: -1,
+    image: 'https://cdn.prod.www.spiegel.de/images/97ce1c1e-0001-0004-0000-000001372718_w1019_r1_fpx41.39_fpy44.85.jpg'
+  }, {
+    name: 'Proxima Centauri',
+    r: 20,
+    d: 40174990,
+    sunPart: -1,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/9/95/New_shot_of_Proxima_Centauri%2C_our_nearest_neighbour.jpg'
+  }
+];
+const query = Object.fromEntries(location.search.substring(1).split('&').map(q => q.split('=').map(q => decodeURIComponent(q))));
+const speed = parseInt(query.speed) || 1;
+const startPos = parseInt(query.start) || 0;
+const z = .1;
 
-const start = Date.now()
-const svg = document.getElementById('svg')
-const time = document.getElementById('time')
-const aspect = parseInt(getComputedStyle(svg).width) / parseInt(getComputedStyle(svg).height)
+let pos = 0;
+let planet = 1;
+let width, height;
+let animating = false;
+
+const start = Date.now();
+const svg = document.getElementById('svg');
+const time = document.getElementById('time');
+const aspect = parseInt(getComputedStyle(svg).width) / parseInt(getComputedStyle(svg).height);
 
 for (const p of planets) {
-    const c = document.createElementNS('http://www.w3.org/2000/svg', 'image')
-    c.setAttribute('href', p.image)
-    p.imageElem = c
-    svg.append(c)
+  const c = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+  c.setAttribute('href', p.image);
+  p.imageElem = c;
+  svg.append(c);
 }
-const ray = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-ray.setAttribute('fill', '#ffcc00')
-svg.append(ray)
+const ray = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+ray.setAttribute('fill', '#ffcc00');
+svg.append(ray);
 
-zoom(planet)
+zoom(planet);
 // animate()
-animateRay()
+animateRay();
 // animate(planets.venus, planets.mercur)
 // setTimeout(()=>animate(planets.earth, planets.venus),1000)
 // setTimeout(()=>animate(planets.mars, planets.earth),2000)
@@ -112,89 +147,92 @@ animateRay()
 // zoom(planets.mercur)
 
 function animateRay() {
-    const t = (Date.now() - start) / 1000 * speed
-    pos = t * .3
-    drawRay()
-    if (pos > planets[planet].d) {
-        animate()
-    }
-    time.textContent = asPlanet()
-    setTimeout(animateRay, 50)
+  const t = (Date.now() - start) / 1000 * speed;
+  pos = (startPos + t) * .3;
+  drawRay();
+  if (pos > planets[planet].d) {
+    animate();
+  }
+  const p = Math.abs(pt(planet)) < Math.abs(pt(planet - 1)) ? planet : planet - 1;
+  time.textContent = asPlanet(planets[p], pt(p));
+  setTimeout(animateRay, 50);
+}
+
+function pt(planet) {
+  const p = planets[planet];
+  return Math.round(60 * pos / p.d) - 60;
 }
 
 function asTime(t) {
-    return Math.floor(t / 3600) + ':' + ('' + Math.floor(t % 3600 / 60)).padStart(2, '0') + ':' + ('' + Math.floor(t % 60)).padStart(2, '0')
+  return Math.floor(t / 3600) + ':' + ('' + Math.floor(t % 3600 / 60)).padStart(2, '0') + ':' + ('' + Math.floor(t % 60)).padStart(2, '0');
 }
 
-function asPlanet() {
-    const p = planets[planet]
-    const min = Math.round(60 * pos / p.d)
-    return (() => {
-        switch (min) {
-        case 59:
-        case 60:
-        case 61:
-            return ''
-        case 44:
-        case 45:
-        case 46:
-            return 'quarter to '
-        case 29:
-        case 30:
-        case 31:
-            return 'halve '
-        case 74:
-        case 75:
-        case 76:
-            return 'quarter past '
-        default:
-            return (min < 60) ? (60 - min) + ' to ' : (min - 60) + ' past '
-        }
-    })() + p.name
+function asPlanet(p, min) {
+  return (() => {
+    switch (min) {
+    case -1:
+    case 0:
+    case 1:
+      return '';
+    case -16:
+    case -15:
+    case -14:
+      return 'quarter to ';
+    case -31:
+    case -30:
+    case -29:
+      return 'halve ';
+    case 14:
+    case 15:
+    case 16:
+      return 'quarter past ';
+    default:
+      return (min < 0) ? (-min) + ' to ' : (min) + ' past ';
+    }
+  })() + p.name;
 }
 
 
 function animate(f = 0) {
-    if (f === 0 && animating) {
-        return
-    }
-    console.log(f)
-    animating = true
-    zoom(planet + 1, planet, f)
-    if (f < .999) {
-        setTimeout(() => animate(f + .01), 20)
-    } else {
-        planet++
-        animating = false
-    }
+  if (f === 0 && animating) {
+    return;
+  }
+  animating = true;
+  zoom(planet + 1, planet, f);
+  if (f < .999) {
+    setTimeout(() => animate(f + .01), 20);
+  } else {
+    planet++;
+    animating = false;
+  }
 }
 
 
 function zoom(planet1, planet0 = 0, f = 1) {
-    pd = planets[planet0].d * (1 - f) + planets[planet1].d * f
-    pr = planets[planet1].r
-    psp = planets[planet0].sunPart * (1 - f) + planets[planet1].sunPart * f
-    const s = 240 * planets[0].r / pd
-    const x0 = s * psp
-    width = pd * 100 - x0
-    height = width / aspect
-    svg.setAttribute('viewBox', `${x0} ${-height / 2} ${width} ${height}`)
-    for (let i = 0; i < planets.length; i++) {
-        const p = planets[i]
-        const d = Math.max(i === 0 ? 50 : 40000 / width, Math.abs(pd - p.d))
-        const r = 240 * p.r / d
-        p.imageElem.setAttribute('x', p.d * 100 - r)
-        p.imageElem.setAttribute('y', -r)
-        p.imageElem.setAttribute('width', 2 * r)
-        p.imageElem.setAttribute('height', 2 * r)
-    }
-    drawRay()
+  pd = planets[planet0].d * (1 - f) + planets[planet1].d * f;
+  pr = planets[planet1].r;
+  psp = planets[planet0].sunPart * (1 - f) + planets[planet1].sunPart * f;
+  const s = 2.4 * z * planets[0].r / pd;
+  const x0 = s * psp;
+  width = pd * z - x0;
+  height = width / aspect;
+  svg.setAttribute('viewBox', `${x0} ${-height / 2} ${width} ${height}`);
+  for (let i = 0; i < planets.length; i++) {
+    const p = planets[i];
+    const d = Math.max(i === 0 ? 50 * z : 400 * z / width, Math.abs(pd - p.d));
+    const r = 2.4 * z * p.r / d;
+    p.imageElem.setAttribute('x', p.d * z - r);
+    p.imageElem.setAttribute('y', -r);
+    p.imageElem.setAttribute('width', 2 * r);
+    p.imageElem.setAttribute('height', 2 * r);
+  }
+  drawRay();
 }
 
 function drawRay() {
-    ray.setAttribute('x', 0)
-    ray.setAttribute('y', -height / 200)
-    ray.setAttribute('width', pos * 100)
-    ray.setAttribute('height', height / 100)
+  ray.setAttribute('x', 0);
+  ray.setAttribute('y', -height / 200);
+  ray.setAttribute('width', pos * z);
+  ray.setAttribute('height', height / 100);
 }
 </script>
